@@ -80,7 +80,8 @@ bankObjects.addObject = function addObject(objType, bankId, customerId, accountI
             case 'transaction':
                 if (bank[bankId].customers[customerId].accounts[accountId].transactions.length === 1 && bank[bankId].customers[customerId].accounts[accountId].transactions[0].timeStamp === null)
                     bank[bankId].customers[customerId].accounts[accountId].transactions.splice(0, 1);
-                bank[bankId].customers[customerId].accounts[accountId].transactions.push(bankObjects.accountTransaction(value2, value1));
+                bank[bankId].customers[customerId].accounts[accountId].transactions.push(bankObjects.accountTransaction(parseFloat(value2.replace(",", ".")), value1));
+                bank[bankId].customers[customerId].accounts[accountId].balance = bank[bankId].customers[customerId].accounts[accountId].balance + parseFloat(value2.replace(",", "."));
                 bank[bankId].customers[customerId].accounts[accountId]["listTransactions"](bankId, customerId, accountId);
                 break;
         }
@@ -263,7 +264,8 @@ bankObjects.deleteObject = function deleteObject(objType, index, bankId, custome
                 break;
 
             case 'transaction':
-                bank[bankId].customers[customerId].accounts[accountId].transactions.splice(index, 1);
+                bank[bankId].customers[customerId].accounts[accountId].balance = bank[bankId].customers[customerId].accounts[accountId].balance - bank[bankId].customers[customerId].accounts[accountId].transactions[index].amount;
+                    bank[bankId].customers[customerId].accounts[accountId].transactions.splice(index, 1);
                 break;
         }
 
