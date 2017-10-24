@@ -1,0 +1,182 @@
+html {
+    background-color: #b4b4b1;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+a:link {
+    color: black;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+a:hover {
+    color: black;
+}
+
+a:active {
+    color: black;
+}
+
+th {
+    background-color: cadetblue;
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+    border-bottom: 1px solid black;
+}
+
+td {
+    border-bottom: 1px solid #cecec8;
+    padding: 10px;
+}
+
+.toolTable {
+    width: 690px;
+}
+
+.dataTable {
+    border: 1px solid black;
+    /*cellpadding: 1000px;*/
+    background-color: #c6ece6;
+    border-collapse: collapse;
+    width: 690px;
+}
+
+.firstColumnHeader {
+    width: 25px;
+}
+
+.firstColumn {
+    width: 25px;
+}
+
+.lastColumn {
+    text-align: right;
+}
+
+.lastRow {
+    border-bottom: 1px solid black;
+}
+
+.bankNameHeader {
+    width: 250px;
+}
+
+.bankName {
+    width: 250px;
+}
+
+.bankBicCodeHeader {
+    width: 400px;
+}
+
+.bankBicCode {
+    width: 400px;
+}
+
+.languageButtons {
+    text-align: right;
+    vertical-align: text-top;
+}
+
+.languageBtn {
+    width: 50px;
+    height: 25px;
+}
+
+.submitButton {
+    width: 25px;
+    height: 25px;
+}
+
+.cancelButton {
+    width: 25px;
+    height: 25px;
+}
+
+.backBtn {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.addBtn {
+    width: 40px;
+    height: 40px;
+}
+
+.deleteBtn {
+    text-align: right;
+    width: 25px;
+    height: 25px;
+    opacity: 0.25;
+}
+
+.deleteBtn:hover {
+    opacity: 1;
+}
+
+.editBtn {
+    width: 25px;
+    height: 25px;
+    opacity: 0.25;
+}
+
+.editBtn:hover {
+    opacity: 1;
+}
+
+.firstNameHeader {
+    width: 100px;
+}
+
+.firstName {
+    width: 100px;
+}
+
+.lastNameHeader {
+    width: 450px;
+}
+
+.lastName {
+    width: 450px;
+}
+
+.iban {
+    width: 150px;
+}
+
+.accountName {
+    width: 250px;
+}
+
+.balanceHeader {
+    text-align: right;
+}
+
+.balance {
+    width: 390px;
+    text-align: right;
+}
+
+.timeStampHeader {
+    width: 500px;
+}
+
+.timeStamp {
+    width: 500px;
+}
+
+.amountHeader {
+    text-align: right;
+}
+
+.amount {
+    width: 390px;
+    text-align: right;
+}
