@@ -1,4 +1,4 @@
-var bank = [];
+bankObjects.bank = [];
 
 bank.push(bankObjects.bank('Osuuspankki', 'OKOYFIHH'));
 bank.push(bankObjects.bank('Nordea', 'NORDFIHH'));

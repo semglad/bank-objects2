@@ -1,5 +1,7 @@
 bankObjects.language = 'fi';
 
+bankObjects.serverUrl = 'http://localhost:63187/api/';
+
 bankObjects.setLanguage = function setLanguage(language) {
     bankObjects.language = language;
 };
@@ -10,9 +12,29 @@ bankObjects.getTranslationFromDictionary = function getTranslationFromDictionary
     return langDictionary[value];
 };
 
-bankObjects.testIfNotTableType = function testIfNotTableType(value) {
+bankObjects.testIfNotTableType = function testIfNotTableType(value, keyName) {
 
-    return(typeof(value) !== 'string' && typeof(value) !== 'number' && value !== null)
+    if (typeof(value) !== 'string' && typeof(value) !== 'number' && value !== null)
+        return true;
+    else
+        if (keyName === 'id')
+            return true;
+    return false;
+};
+
+bankObjects.getResource = function getResource (resourceName, onResponse) {
+    var request = new XMLHttpRequest();
+
+    request.open('GET', bankObjects.serverUrl + resourceName, true);
+
+    request.send();
+
+    request.onreadystatechange = function () {
+        if (request.readyState === 4 && request.status === 200) {
+            bankObjects.tempObj = JSON.parse(request.responseText);
+            onResponse(JSON.parse(request.responseText));
+        }
+    }
 };
 
 bankObjects.resetCurrentData = function resetCurrentData () {
@@ -47,6 +69,6 @@ bankObjects.showEmptyRecord = function showEmptyRecord(className, anchor, objTyp
 };
 
 document.addEventListener('DOMContentLoaded', function() {
-    bankObjects.showBanks(bank);
+    bankObjects.showBanks();
     bankObjects.setFlags();
 }, false);

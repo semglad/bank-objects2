@@ -1,10 +1,17 @@
-bankObjects.showBanks = function showBanks(bank) {
+bankObjects.tempObj = undefined;
+
+bankObjects.showBanks = function showBanks() {
 
     bankObjects.lastFunction = showBanks;
 
-    bankObjects.resetCurrentData();
-    var anchor = bankObjects.showHeadersInTable(bank, 'bank');
-    bankObjects.showDataInTable('bank', anchor);
+    function getResourceCallback(response) {
+        bankObjects.bank = response;
+        bankObjects.resetCurrentData();
+        var anchor = bankObjects.showHeadersInTable(response, 'bank');
+        bankObjects.showDataInTable('bank', anchor);
+    }
+
+    bankObjects.getResource('bank', getResourceCallback);
 };
 
 bankObjects.showHeadersInTable = function showHeadersInTable(obj, objType, bankId, customerId, accountId) {
@@ -48,7 +55,7 @@ bankObjects.showHeadersInTable = function showHeadersInTable(obj, objType, bankI
 
     for (var i = 0; i < objKeys.length; i++)
     {
-        if (bankObjects.testIfNotTableType(objValues[i]))
+        if (bankObjects.testIfNotTableType(objValues[i], objKeys[i]))
             continue;
 
         var td = document.createElement("th");
@@ -82,7 +89,7 @@ bankObjects.showDataInTable = function showDataInTable (objType, anchor, bankId,
 
     switch (objType) {
         case 'bank':
-            list = bank;
+            list = bankObjects.tempObj;
             break;
 
         case 'customer':
@@ -90,7 +97,7 @@ bankObjects.showDataInTable = function showDataInTable (objType, anchor, bankId,
             break;
 
         case 'account':
-            list = bank[bankId].customers[customerId].accounts;
+            list = bankObjects.bank[bankId].customers[customerId].accounts;
             break;
 
         case 'transaction':
@@ -143,7 +150,7 @@ bankObjects.showDataInTable = function showDataInTable (objType, anchor, bankId,
             if (listValues[j] === null)
                 listValues[j] = '';
 
-            if (bankObjects.testIfNotTableType(listValues[j]))
+            if (bankObjects.testIfNotTableType(listValues[j], listKeys[j]))
                 continue;
 
             var nodeText = listValues[j];

@@ -46,12 +46,7 @@ bankObjects.addObject = function addObject(objType, bankId, customerId, accountI
         anchor.appendChild(inputNode);
     }
 
-    var submitButton = document.createElement('input');
-    submitButton.type = 'image';
-    submitButton.src = 'resources\\images\\submit.png';
-    submitButton.id = 'buttonSubmit';
-    submitButton.className = 'submitButton';
-    anchor.appendChild(document.createElement('p'));
+    var submitButton = bankObjects.showButton('submit', anchor);
     submitButton.addEventListener('click', function() {
 
         var value1 = document.getElementById('textInput0').value;
@@ -87,33 +82,11 @@ bankObjects.addObject = function addObject(objType, bankId, customerId, accountI
         }
     });
 
+    anchor.appendChild(document.createElement('p'));
     anchor.appendChild(submitButton);
 
-    var cancelButton = document.createElement('input');
-    cancelButton.type = 'image';
-    cancelButton.src = 'resources\\images\\cancel.png';
-    cancelButton.id = 'buttonCancel';
-    cancelButton.className = 'cancelButton';
-    cancelButton.addEventListener('click', function() {
-
-        switch (objType) {
-            case 'bank':
-                window["bankObjects"]["showBanks"](bank);
-                break;
-
-            case 'customer':
-                bank[bankId]["listCustomers"](bankId);
-                break;
-
-            case 'account':
-                bank[bankId].customers[customerId]["listAccounts"](bankId, customerId);
-                break;
-
-            case 'transaction':
-                bank[bankId].customers[customerId].accounts[accountId]["listTransactions"](bankId, customerId, accountId);
-                break;
-        }
-    });
+    var cancelButton = bankObjects.showButton('cancel', anchor)
+    cancelButton.addEventListener('click', bankObjects.cancelOperation(objType, bankId, customerId, accountId));
 
     anchor.appendChild(cancelButton);
 };
@@ -142,42 +115,37 @@ bankObjects.editObject = function editObject(objType, bankId, customerId, accoun
         switch (objType) {
             case 'bank':
                 if (i === 0)
-                    inputNode.value = bank[bankId].bankName;
+                    inputNode.value = bankObjects.bank[bankId].name;
                 else
-                    inputNode.value = bank[bankId].bankBicCode;
+                    inputNode.value = bankObjects.bank[bankId].bic;
                 break;
 
             case 'customer':
                 if (i === 0)
-                    inputNode.value = bank[bankId].customers[customerId].firstName;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].firstName;
                 else
-                    inputNode.value = bank[bankId].customers[customerId].lastName;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].lastName;
                 break;
 
             case 'account':
                 if (i === 0)
-                    inputNode.value = bank[bankId].customers[customerId].accounts[accountId].iban;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].accounts[accountId].iban;
                 else
-                    inputNode.value = bank[bankId].customers[customerId].accounts[accountId].accountName;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].accounts[accountId].accountName;
                 break;
 
             case 'transaction':
                 if (i === 0)
-                    inputNode.value = bank[bankId].customers[customerId].accounts[accountId].transactions[transactionId].timeStamp;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].accounts[accountId].transactions[transactionId].timeStamp;
                 else
-                    inputNode.value = bank[bankId].customers[customerId].accounts[accountId].transactions[transactionId].amount;
+                    inputNode.value = bankObjects.bank[bankId].customers[customerId].accounts[accountId].transactions[transactionId].amount;
                 break;
         }
         anchor.appendChild(document.createElement('p'));
         anchor.appendChild(inputNode);
     }
 
-    var submitButton = document.createElement('input');
-    submitButton.type = 'image';
-    submitButton.src = 'resources\\images\\submit.png';
-    submitButton.id = 'buttonSubmit';
-    submitButton.className = 'submitButton';
-    anchor.appendChild(document.createElement('p'));
+    var submitButton = bankObjects.showButton('submit', anchor);
     submitButton.addEventListener('click', function() {
 
         var value1 = document.getElementById('textInput0').value;
@@ -216,35 +184,33 @@ bankObjects.editObject = function editObject(objType, bankId, customerId, accoun
         }
     });
 
+    anchor.appendChild(document.createElement('p'));
     anchor.appendChild(submitButton);
 
-    var cancelButton = document.createElement('input');
-    cancelButton.type = 'image';
-    cancelButton.src = 'resources\\images\\cancel.png';
-    cancelButton.id = 'buttonCancel';
-    cancelButton.className = 'cancelButton';
-    cancelButton.addEventListener('click', function() {
-
-        switch (objType) {
-            case 'bank':
-                window["bankObjects"]["showBanks"](bank);
-                break;
-
-            case 'customer':
-                bank[bankId]["listCustomers"](bankId);
-                break;
-
-            case 'account':
-                bank[bankId].customers[customerId]["listAccounts"](bankId, customerId);
-                break;
-
-            case 'transaction':
-                bank[bankId].customers[customerId].accounts[accountId]["listTransactions"](bankId, customerId, accountId);
-                break;
-        }
-    });
+    var cancelButton = bankObjects.showButton('cancel', anchor);
+    cancelButton.addEventListener('click', bankObjects.cancelOperation(objType, bankId, customerId, accountId));
 
     anchor.appendChild(cancelButton);
+};
+
+bankObjects.cancelOperation = function cancelOperation (objType, bankId, customerId, accountId) {
+    switch (objType) {
+        case 'bank':
+            window["bankObjects"]["showBanks"](bankObjects.bank);
+            break;
+
+        case 'customer':
+            bank[bankId]["listCustomers"](bankId);
+            break;
+
+        case 'account':
+            bank[bankId].customers[customerId]["listAccounts"](bankId, customerId);
+            break;
+
+        case 'transaction':
+            bank[bankId].customers[customerId].accounts[accountId]["listTransactions"](bankId, customerId, accountId);
+            break;
+    }
 };
 
 bankObjects.deleteObject = function deleteObject(objType, index, bankId, customerId, accountId) {
@@ -313,7 +279,9 @@ bankObjects.showButton = function showButton(buttonType, anchor, onclick, langNa
     }
     button.className = buttonType + 'Btn';
 
-    button.setAttributeNode(onclick);
+    if (onclick !== undefined)
+        button.setAttributeNode(onclick);
+
     anchor.appendChild(button);
 
     return button;

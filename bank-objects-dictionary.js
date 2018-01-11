@@ -1,7 +1,7 @@
 var dictionary = {
     en: {
-        bankName: 'Bank name',
-        bankBicCode: 'BIC code',
+        name: 'Bank name',
+        bic: 'BIC code',
 
         firstName: 'First name',
         lastName: 'Last name',
@@ -40,8 +40,8 @@ var dictionary = {
     },
 
     fi: {
-        bankName: 'Pankin nimi',
-        bankBicCode: 'BIC-koodi',
+        name: 'Pankin nimi',
+        bic: 'BIC-koodi',
 
         firstName: 'Etunimi',
         lastName: 'Sukunimi',
@@ -79,8 +79,8 @@ var dictionary = {
     },
 
     ru: {
-        bankName: 'название банка',
-        bankBicCode: 'Код банка BIC',
+        name: 'название банка',
+        bic: 'Код банка BIC',
 
         firstName: 'имя',
         lastName: 'фамилия',
@@ -118,8 +118,8 @@ var dictionary = {
     },
 
     se: {
-        bankName: 'Bank namn',
-        bankBicCode: 'BIC-kod',
+        name: 'Bank namn',
+        bic: 'BIC-kod',
 
         firstName: 'Förnamn',
         lastName: 'Efternamn',
@@ -157,8 +157,8 @@ var dictionary = {
     },
 
     de: {
-        bankName: 'Bank Name',
-        bankBicCode: 'BIC Code',
+        name: 'Bank Name',
+        bic: 'BIC Code',
 
         firstName: 'Vorname',
         lastName: 'Familienname',
